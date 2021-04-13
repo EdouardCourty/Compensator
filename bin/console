@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+require('dotenv').config();
+require('colors');
+const Console = require('../lib/console/Console');
+const {argv} = require('yargs');
+
+Console.init(argv)
