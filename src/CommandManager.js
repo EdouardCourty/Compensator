@@ -9,17 +9,20 @@ class CommandManager {
   /** @type Command[] */
   static commandList = [];
 
-  static load() {
+  static async load() {
     Logger.logCommandsLoading();
-    fs.readdirSync(`${__dirname}/../app/commands`)
-      .filter(file => file.endsWith('.js'))
-      .forEach(commandFile => {
-        const commandModule = require(`../app/commands/${commandFile}`);
-        /** @type Command */
-        const constructedCommand = new commandModule();
+    const commandFiles = fs.readdirSync(`${__dirname}/../app/commands`)
+      .filter(file => file.endsWith('.js'));
+
+    for (let commandFile of commandFiles) {
+      const commandModule = require(`../app/commands/${commandFile}`);
+      /** @type Command */
+      const constructedCommand = new commandModule();
+      await constructedCommand.validate().then(_ => {
         this.commandList.push(constructedCommand);
         Logger.logSingleCommandLoadSuccess(constructedCommand.getName());
-      })
+      }).catch(Logger.logSingleCommandLoadFailure);
+    }
   }
 
   /**

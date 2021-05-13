@@ -8,8 +8,8 @@ class ReadyEvent extends Event {
     this.setExecutor(this.executor);
   }
 
-  executor() {
-    Logger.logReadyEvent();
+  executor(client) {
+    Logger.logReadyEvent(client.user.tag);
   }
 }
 

@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 const CommandManager = require('./CommandManager');
 const EventManager = require('./EventManager');
 const Logger = require('./Logger');
+const LocalStorage = require('../lib/client/LocalStorage');
 
 const configFile = require('../app/config/config.json');
 
@@ -11,14 +12,16 @@ class Kernel {
 
   static parameters = new Map();
 
-  static startClient() {
+  static async startClient() {
     this.client = new Discord.Client();
-    CommandManager.load();
+    await CommandManager.load();
     EventManager.load(this.client);
     Object.entries(configFile).forEach(([key, value]) => {
       this.parameters.set(key, value);
     });
-    this.login();
+    if (!LocalStorage.get('offline-mode')) {
+      this.login();
+    }
   }
 
   static login() {

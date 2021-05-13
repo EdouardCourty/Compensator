@@ -20,6 +20,10 @@ class Logger {
     console.log(`Loaded command ${commandName}.`.green);
   }
 
+  static logSingleCommandLoadFailure(error) {
+
+  }
+
   static logEventsLoading() {
     console.log('Loading events...'.blue);
   }
@@ -28,8 +32,8 @@ class Logger {
     console.log(`Loaded event ${eventName}.`.green);
   }
 
-  static logReadyEvent() {
-    console.log('Ready event triggered.'.green);
+  static logReadyEvent(username) {
+    console.log(`Ready, logged in as ${username}`.green);
   }
 
   static logErrorEvent(error) {
@@ -92,7 +96,7 @@ class Logger {
   }
 
   static logConnectionSuccess() {
-    console.log('Connection established.'.green);
+    console.log('Connection established.'.blue);
   }
 
   static logReloadComplete() {
