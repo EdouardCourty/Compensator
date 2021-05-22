@@ -10,7 +10,6 @@ class CompensateCommand extends Command {
     this.setHelpText('Compensates a server by purifying it.');
     this.setPermission('ADMINISTRATOR');
     this.setUsage('$compensate');
-    this.setExecutor(this.executor);
   }
 
   /**
@@ -19,7 +18,7 @@ class CompensateCommand extends Command {
    * @param {Message} message
    * @param {*[]} args
    */
-  async executor(client, message, args) {
+  async run(client, message, args) {
     const guildId = args[0];
     const currentGuildId = message.guild.id;
     const isForceMode = args[1] === '--force';

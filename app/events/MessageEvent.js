@@ -10,14 +10,13 @@ class MessageEvent extends Event {
   constructor() {
     super();
     this.setTrigger('message');
-    this.setExecutor(this.executor);
   }
 
   /**
    * @param {Client} client
    * @param {Message} message
    */
-  async executor(client, message) {
+  async handle(client, message) {
     const isCommand = message.content.startsWith(Kernel.parameters.get('command_prefix'));
 
     if (Kernel.parameters.get('log_messages')) {
@@ -37,13 +36,13 @@ class MessageEvent extends Event {
           if (message.member.hasPermission(command.getPermission())
             || parseInt(message.author.id) === Kernel.parameters.get('owner_id')
           ) {
-            command.getExecutor()(client, message, args);
+            command.getRunner()(client, message, args);
             Logger.logCommandSuccess(commandName, args, message.author.tag, message.guild.name);
           } else {
             Logger.logLackOfPermissions(commandName, args, message.author.tag, message.guild.name);
           }
         } else {
-          command.getExecutor()(client, message, args);
+          command.getRunner()(client, message, args);
           Logger.logCommandSuccess(commandName, args, message.author.tag, message.guild.name);
         } // TODO: Refactor this crappy method
       }).catch(_ => {

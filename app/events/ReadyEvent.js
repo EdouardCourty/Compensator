@@ -5,10 +5,9 @@ class ReadyEvent extends Event {
   constructor() {
     super();
     this.setTrigger('ready');
-    this.setExecutor(this.executor);
   }
 
-  executor(client) {
+  handle(client) {
     Logger.logReadyEvent(client.user.tag);
   }
 }

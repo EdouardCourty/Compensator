@@ -6,10 +6,9 @@ class ErrorEvent extends Event {
   constructor() {
     super();
     this.setTrigger('error');
-    this.setExecutor(this.executor);
   }
 
-  executor(client, error) {
+  handle(client, error) {
     if (Kernel.parameters.get('log_error_event')) {
       Logger.logErrorEvent(error);
     }

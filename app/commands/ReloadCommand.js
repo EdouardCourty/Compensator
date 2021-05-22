@@ -12,7 +12,6 @@ class CompensateCommand extends Command {
     this.setHelpText('Reload the event listeners and command handlers.');
     this.setPermission('ADMINISTRATOR');
     this.setUsage('$reload');
-    this.setExecutor(this.executor);
   }
 
   /**
@@ -21,7 +20,7 @@ class CompensateCommand extends Command {
    * @param {Message} message
    * @param {*[]} args
    */
-  executor(client, message, args) {
+  run(client, message, args) {
     Logger.logReloadInizialized(message.author.tag);
     Kernel.reload();
   }

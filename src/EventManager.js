@@ -13,7 +13,7 @@ class EventManager {
         const eventModule = require(`../app/events/${eventFile}`);
         /** @type Event */
         const constructedEvent = new eventModule();
-        client.on(constructedEvent.getTrigger(), constructedEvent.getExecutor().bind(null, client));
+        client.on(constructedEvent.getTrigger(), constructedEvent.getHandler().bind(null, client));
         Logger.logSingleEventLoadSuccess(constructedEvent.getTrigger())
       })
   }
